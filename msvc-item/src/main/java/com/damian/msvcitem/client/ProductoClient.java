@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import java.util.List;
 import java.util.Optional;
 
-@FeignClient(name = "msvc-productos",url="localhost:8001/productos")
+@FeignClient(name = "msvc-productos",url="localhost:8001/producto")
 public interface ProductoClient {
     @GetMapping
     public List<Producto> listar();
