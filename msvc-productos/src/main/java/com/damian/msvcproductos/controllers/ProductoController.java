@@ -11,7 +11,7 @@ import java.lang.management.OperatingSystemMXBean;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/producto")
+//@RequestMapping("/producto")
 public class ProductoController {
     @Autowired
     private ProductoService service;

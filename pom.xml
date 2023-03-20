@@ -17,6 +17,7 @@
     <modules>
         <module>msvc-productos</module>
         <module>msvc-item</module>
+        <module>eureka-server</module>
     </modules>
     <properties>
         <maven.compiler.source>19</maven.compiler.source>
