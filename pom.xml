@@ -10,7 +10,7 @@
     <packaging>pom</packaging>
     <parent>
         <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
+        <artifactId>spring-boot-starter-parent</artifactId>o
         <version>2.2.11.RELEASE</version>
 
     </parent>
