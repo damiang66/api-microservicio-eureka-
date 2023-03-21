@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 @RestController
-@RequestMapping("/item")
+//@RequestMapping("/item")
 public class ItemController {
     @Autowired
     @Qualifier("serviceFeign")
