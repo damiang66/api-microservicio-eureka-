@@ -4,6 +4,7 @@ import com.damian.msvcitem.entity.Item;
 import com.damian.msvcitem.entity.Producto;
 import com.damian.msvcitem.service.ItemService;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import io.github.resilience4j.timelimiter.annotation.TimeLimiter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.CompletableFuture;
 
 
 @RestController
@@ -47,11 +49,20 @@ public class ItemController {
            service.findById(id,cantidad), e -> metodoAltenativo(id,cantidad,e));
 
     }
-    @CircuitBreaker(name="items")
+    // cortocircuito
+    @CircuitBreaker(name="items", fallbackMethod = "metodoAlternativo")
     @GetMapping("/error/{id}/cantidad/{cantidad}")
     public Item detalle2(@PathVariable Long id, @PathVariable Integer cantidad){
         // return service.findById(id, cantidad);
         return   service.findById(id,cantidad);
+
+    }
+    // tiempo de espera
+    @TimeLimiter(name="items", fallbackMethod = "metodoAlternativo2")
+    @GetMapping("/error1/{id}/cantidad/{cantidad}")
+    public CompletableFuture<Item>  detalle3(@PathVariable Long id, @PathVariable Integer cantidad){
+        // return service.findById(id, cantidad);
+        return CompletableFuture.supplyAsync(()->service.findById(id,cantidad));
 
     }
     public Item metodoAltenativo(Long id, Integer cantidad,Throwable e){
@@ -64,6 +75,19 @@ public class ItemController {
         producto.setPrecio(500.00);
         item.setProducto(producto);
         return item;
+
+    }
+
+    public CompletableFuture<Item> metodoAltenativo2(Long id, Integer cantidad,Throwable e){
+        logger.info(e.getMessage());
+        Item item = new Item();
+        Producto producto = new Producto();
+        item.setCantidad(cantidad);
+        producto.setId(id);
+        producto.setNombre("Camara Sony alternativo");
+        producto.setPrecio(500.00);
+        item.setProducto(producto);
+        return CompletableFuture.supplyAsync(()->item);
 
     }
 
