@@ -3,6 +3,7 @@ package com.damian.msvcitem.controllador;
 import com.damian.msvcitem.entity.Item;
 import com.damian.msvcitem.entity.Producto;
 import com.damian.msvcitem.service.ItemService;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,6 +45,13 @@ public class ItemController {
         return cbfactory.create("items")
                 .run(()->
            service.findById(id,cantidad), e -> metodoAltenativo(id,cantidad,e));
+
+    }
+    @CircuitBreaker(name="items")
+    @GetMapping("/error/{id}/cantidad/{cantidad}")
+    public Item detalle2(@PathVariable Long id, @PathVariable Integer cantidad){
+        // return service.findById(id, cantidad);
+        return   service.findById(id,cantidad);
 
     }
     public Item metodoAltenativo(Long id, Integer cantidad,Throwable e){
