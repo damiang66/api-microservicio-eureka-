@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.lang.management.OperatingSystemMXBean;
 import java.util.Optional;
+import java.util.concurrent.TimeUnit;
 
 @RestController
 //@RequestMapping("/producto")
@@ -35,7 +36,13 @@ public class ProductoController {
         return ResponseEntity.status(HttpStatus.CREATED).body(service.save(producto));
     }
     @PutMapping("/{id}")
-    public ResponseEntity<?>editar(@RequestBody Producto producto, @PathVariable Long id){
+    public ResponseEntity<?>editar(@RequestBody Producto producto, @PathVariable Long id) throws InterruptedException {
+        if(id.equals(10L)){
+            throw new IllegalStateException("producto 10 provoco un error");
+        }
+        if(id.equals(7L)){
+            TimeUnit.SECONDS.sleep(5L);
+        }
         Optional<Producto> r = service.findById(id);
         if (r.isPresent()) {
             Producto productoDb= r.get();
