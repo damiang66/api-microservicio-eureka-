@@ -19,6 +19,7 @@
         <module>msvc-item</module>
         <module>eureka-server</module>
         <module>msvc-gateway</module>
+        <module>msvc-configServer</module>
     </modules>
     <properties>
         <maven.compiler.source>19</maven.compiler.source>

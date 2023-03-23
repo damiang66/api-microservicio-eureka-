@@ -8,6 +8,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="msvc-item" />
+        <module name="msvc-configServer" />
         <module name="msvc-productos" />
         <module name="eureka-server" />
         <module name="msvc-gateway" />
@@ -18,6 +19,7 @@
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="eureka-server" options="-parameters" />
       <module name="microservicios-docker" options="-parameters" />
+      <module name="msvc-configServer" options="-parameters" />
       <module name="msvc-gateway" options="-parameters" />
       <module name="msvc-item" options="-parameters" />
       <module name="msvc-productos" options="-parameters" />

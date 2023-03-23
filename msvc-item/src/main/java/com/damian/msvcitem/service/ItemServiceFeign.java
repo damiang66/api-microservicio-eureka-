@@ -25,4 +25,19 @@ public class ItemServiceFeign implements ItemService {
 
         return new Item(productoClient.ver(id).get(),cantidad);
     }
+
+    @Override
+    public Producto save(Producto producto) {
+        return productoClient.crear(producto);
+    }
+
+    @Override
+    public Producto editar(Producto producto, Long id) {
+        return productoClient.editar(producto,id);
+    }
+
+    @Override
+    public void delete(Long id) {
+    productoClient.eliminarr(id);
+    }
 }

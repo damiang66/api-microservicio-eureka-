@@ -9,7 +9,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.client.circuitbreaker.CircuitBreakerFactory;
+
+import org.springframework.cloud.context.config.annotation.RefreshScope;
+
+import org.springframework.core.env.Environment;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,19 +23,52 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
-
+@RefreshScope
 @RestController
 //@RequestMapping("/item")
 public class ItemController {
     private final Logger logger = LoggerFactory.getLogger(ItemController.class);
 
+
+    private Environment env;
+
     private CircuitBreakerFactory cbfactory;
     @Autowired
     @Qualifier("serviceFeign")
+   // @Qualifier("serviceRestTemplate")
     private ItemService service;
-
-    public ItemController(CircuitBreakerFactory cbfactory) {
+    @Value("${configuracion.texto}")
+    private String texto;
+    public ItemController(Environment env, CircuitBreakerFactory cbfactory) {
+        this.env = env;
         this.cbfactory = cbfactory;
+    }
+    @PostMapping("/crear")
+    public ResponseEntity<?> crear(@RequestBody Producto producto){
+        return ResponseEntity.status(HttpStatus.CREATED).body(service.save(producto));
+    }
+    @PutMapping("/editar/{id}")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Producto editar(@RequestBody Producto producto, @PathVariable Long id){
+        return service.editar(producto,id);
+    }
+    @DeleteMapping("/eliminar/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void eliminar(@PathVariable Long id){
+        service.delete(id);
+    }
+
+    @GetMapping("/obtener-config")
+    public ResponseEntity<?>obtenerConfig(@Value("${server.port}") String puerto){
+        Map<String,String> mapa = new HashMap<>();
+        mapa.put("texto",texto);
+        mapa.put("puerto",puerto);
+       logger.info(env.getProperty("configuracion.autor.nombre"));
+        if(env.getActiveProfiles().length>0 && env.getActiveProfiles()[0].equals("dev")){
+            mapa.put("autor.nombre", env.getProperty("configuracion.autor.nombre"));
+            mapa.put("autor.email", env.getProperty("configuracion.autor.email"));
+        }
+        return new ResponseEntity<Map<String,String>>(mapa, HttpStatus.OK);
     }
 
     @GetMapping
@@ -38,6 +77,7 @@ public class ItemController {
         respuesta.put("lista", service.findAll());
         respuesta.put("parametro", nombre);
         respuesta.put("RequestHeader", token);
+        logger.info(texto);
 
         return ResponseEntity.ok().body(respuesta);
     }
