@@ -1,7 +1,7 @@
 package com.damian.comun.msvcusuarios;
 
-import com.damian.comun.msvcusuarios.entity.Rol;
-import com.damian.comun.msvcusuarios.entity.Usuario;
+import com.damian.comun.msvcusuarioscomun.entidad.Usuario;
+import com.damian.comun.msvcusuarioscomun.entidad.Rol;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
 import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurer;

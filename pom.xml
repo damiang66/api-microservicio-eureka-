@@ -22,6 +22,8 @@
         <module>msvc-configServer</module>
         <module>msvc-comun</module>
         <module>msvc-usuarios</module>
+        <module>msvc-usuarios-comun</module>
+        <module>msvc-oauth</module>
     </modules>
     <properties>
         <maven.compiler.source>19</maven.compiler.source>
