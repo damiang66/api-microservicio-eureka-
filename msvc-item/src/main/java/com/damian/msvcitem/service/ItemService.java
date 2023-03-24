@@ -1,7 +1,7 @@
 package com.damian.msvcitem.service;
 
 import com.damian.msvcitem.entity.Item;
-import com.damian.msvcitem.entity.Producto;
+import com.damian.comun.msvccomun.entity.Producto;
 
 import java.util.List;
 

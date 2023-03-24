@@ -1,0 +1,2 @@
+metodos personalizados:
+http://localhost:8090/api/usuarios/usuarios/search/findByUsername?username=admin

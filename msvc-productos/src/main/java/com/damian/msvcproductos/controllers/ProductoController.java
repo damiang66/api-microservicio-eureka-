@@ -1,13 +1,14 @@
 package com.damian.msvcproductos.controllers;
 
-import com.damian.msvcproductos.entity.Producto;
+
+import com.damian.comun.msvccomun.entity.Producto;
 import com.damian.msvcproductos.service.ProductoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.lang.management.OperatingSystemMXBean;
+
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 

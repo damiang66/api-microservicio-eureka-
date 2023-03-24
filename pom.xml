@@ -20,6 +20,8 @@
         <module>eureka-server</module>
         <module>msvc-gateway</module>
         <module>msvc-configServer</module>
+        <module>msvc-comun</module>
+        <module>msvc-usuarios</module>
     </modules>
     <properties>
         <maven.compiler.source>19</maven.compiler.source>

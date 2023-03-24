@@ -1,5 +1,5 @@
 package com.damian.msvcitem.entity;
-
+import com.damian.comun.msvccomun.entity.Producto;
 import lombok.Data;
 
 

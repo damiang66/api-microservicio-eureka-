@@ -1,7 +1,7 @@
 package com.damian.msvcitem.controllador;
 
 import com.damian.msvcitem.entity.Item;
-import com.damian.msvcitem.entity.Producto;
+import com.damian.comun.msvccomun.entity.Producto;
 import com.damian.msvcitem.service.ItemService;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import io.github.resilience4j.timelimiter.annotation.TimeLimiter;

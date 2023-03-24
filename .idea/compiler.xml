@@ -7,11 +7,13 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="msvc-item" />
         <module name="msvc-configServer" />
+        <module name="msvc-gateway" />
+        <module name="msvc-usuarios" />
+        <module name="msvc-comun" />
+        <module name="msvc-item" />
         <module name="msvc-productos" />
         <module name="eureka-server" />
-        <module name="msvc-gateway" />
       </profile>
     </annotationProcessing>
   </component>
@@ -19,10 +21,12 @@
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="eureka-server" options="-parameters" />
       <module name="microservicios-docker" options="-parameters" />
+      <module name="msvc-comun" options="-parameters" />
       <module name="msvc-configServer" options="-parameters" />
       <module name="msvc-gateway" options="-parameters" />
       <module name="msvc-item" options="-parameters" />
       <module name="msvc-productos" options="-parameters" />
+      <module name="msvc-usuarios" options="-parameters" />
     </option>
   </component>
 </project>

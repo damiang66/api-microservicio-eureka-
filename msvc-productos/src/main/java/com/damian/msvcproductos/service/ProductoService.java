@@ -1,6 +1,8 @@
 package com.damian.msvcproductos.service;
 
-import com.damian.msvcproductos.entity.Producto;
+
+
+import com.damian.comun.msvccomun.entity.Producto;
 
 import java.util.List;
 import java.util.Optional;

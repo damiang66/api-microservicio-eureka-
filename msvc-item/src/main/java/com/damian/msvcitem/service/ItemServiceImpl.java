@@ -1,7 +1,7 @@
 package com.damian.msvcitem.service;
 
 import com.damian.msvcitem.entity.Item;
-import com.damian.msvcitem.entity.Producto;
+import com.damian.comun.msvccomun.entity.Producto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import java.net.http.HttpClient;
+
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;

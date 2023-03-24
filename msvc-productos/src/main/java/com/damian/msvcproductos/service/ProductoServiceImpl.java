@@ -1,6 +1,7 @@
 package com.damian.msvcproductos.service;
 
-import com.damian.msvcproductos.entity.Producto;
+
+import com.damian.comun.msvccomun.entity.Producto;
 import com.damian.msvcproductos.repositorio.ProductoRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

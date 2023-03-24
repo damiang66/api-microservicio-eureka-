@@ -2,7 +2,7 @@ package com.damian.msvcitem.service;
 
 import com.damian.msvcitem.client.ProductoClient;
 import com.damian.msvcitem.entity.Item;
-import com.damian.msvcitem.entity.Producto;
+import com.damian.comun.msvccomun.entity.Producto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
