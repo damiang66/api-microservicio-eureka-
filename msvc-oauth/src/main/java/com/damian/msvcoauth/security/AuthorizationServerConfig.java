@@ -1,8 +1,11 @@
 package com.damian.msvcoauth.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.Environment;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
@@ -12,12 +15,27 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Aut
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 
 
+
+import org.springframework.security.oauth2.provider.token.TokenEnhancerChain;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 
+import java.util.Arrays;
+@RefreshScope
 @Configuration
 @EnableAuthorizationServer
 public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
+    @Autowired
+    private Environment env;
+    @Value("${config.security.oauth.client.id}")
+    private String idCliente;
+    @Value("${config.security.oauth.client.secret}")
+    private String secret;
+    @Value("${config.security.oauth.jwt.key}")
+    private String jwtKey;
+
+    @Autowired
+    private InfoAdicionalToken infoAdicionalToken;
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
     @Autowired
@@ -32,8 +50,8 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-       clients.inMemory().withClient("angularapp")
-               .secret(passwordEncoder.encode("12345"))
+       clients.inMemory().withClient(env.getProperty("config.security.oauth.client.id"))
+               .secret(passwordEncoder.encode(env.getProperty("config.security.oauth.client.secret")))
                .scopes("read","write")
                .authorizedGrantTypes("password", "refresh_token")
                .accessTokenValiditySeconds(3600)
@@ -52,9 +70,12 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     @Override
     // oauth/token
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
+        TokenEnhancerChain tokenEnhancerChain= new TokenEnhancerChain();
+        tokenEnhancerChain.setTokenEnhancers(Arrays.asList(infoAdicionalToken,accessTokenConveret()));
         endpoints.authenticationManager(authenticationManager)
                 .tokenStore(tokenStore())
-                .accessTokenConverter(accessTokenConveret());
+                .accessTokenConverter(accessTokenConveret())
+                .tokenEnhancer(tokenEnhancerChain);
 
     }
     @Bean
@@ -67,7 +88,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
     public JwtAccessTokenConverter accessTokenConveret() {
         JwtAccessTokenConverter tokenConverter = new JwtAccessTokenConverter();
-        tokenConverter.setSigningKey("alguncodigo");
+        tokenConverter.setSigningKey(env.getProperty("config.security.oauth.client.secret"));
         return tokenConverter;
     }
 

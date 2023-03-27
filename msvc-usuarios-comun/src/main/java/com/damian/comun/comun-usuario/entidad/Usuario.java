@@ -26,6 +26,15 @@ public class Usuario {
     @JoinTable(name = "usuarios_roles", joinColumns = @JoinColumn(name = "usuario_id"),inverseJoinColumns = @JoinColumn(name = "role_id"),
     uniqueConstraints = {@UniqueConstraint(columnNames = {"usuario_id", "role_id"})})
     private List<com.damian.comun.msvcusuarioscomun.entidad.Rol> roles;
+    private Integer intentos;
+
+    public Integer getIntentos() {
+        return intentos;
+    }
+
+    public void setIntentos(Integer intentos) {
+        this.intentos = intentos;
+    }
 
     public Long getId() {
         return id;
@@ -90,4 +99,5 @@ public class Usuario {
     public void setRoles(List<com.damian.comun.msvcusuarioscomun.entidad.Rol> roles) {
         this.roles = roles;
     }
+
 }
