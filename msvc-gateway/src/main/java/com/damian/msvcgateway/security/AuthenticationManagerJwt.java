@@ -26,7 +26,7 @@ public class AuthenticationManagerJwt implements ReactiveAuthenticationManager {
     @Value("${config.security.oauth.jwt.key}")
 
     private String llaveJwt;
-    Logger logger = LoggerFactory.getLogger(AuthenticationManagerJwt.class)
+    Logger logger = LoggerFactory.getLogger(AuthenticationManagerJwt.class);
     @Override
     public Mono<Authentication> authenticate(Authentication authentication) {
         return Mono.just(authentication.getCredentials().toString())
