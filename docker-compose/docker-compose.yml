@@ -1,0 +1,94 @@
+version: "3.7"
+services:
+  config-server:
+    image: config-server:latest
+    ports:
+      - "8888:8888"
+    restart: always
+    networks:
+      - spring
+  eureka-server:
+    image: eureka-server:latest
+    ports:
+      - "8761:8761"
+    restart: always
+    networks:
+      - spring
+  msvc-mysql:
+    image: mysql:8
+    ports:
+      - "3307:3306"
+    restart: always
+    networks:
+      - spring
+    environment:
+      MYSQL_DATABASE: db_springboot_cloud
+      MYSQL_ROOT_PASSWORD: root
+  msvc-postgres:
+    image: postgres:12-alpine
+    ports:
+      - "5442:5432"
+    restart: always
+    networks:
+      - spring
+    environment:
+      POSTGRES_DB: db_springboot_cloud
+      POSTGRES_PASSWORD: root
+  msvc-productos:
+    image: msvc-productos:latest
+    restart: always
+    networks:
+      - spring
+    depends_on:
+      - config-server
+      - eureka-server
+      - msvc-mysql
+  msvc-items:
+    image: msvc-items:latest
+    restart: always
+    ports:
+      - "8002:8002"
+      - "8005:8005"
+      - "8007:8007"
+    networks:
+      - spring
+    depends_on:
+      - config-server
+      - eureka-server
+      - msvc-productos
+  msvc-gateway:
+    image: msvc-gateway:latest
+    restart: always
+    ports:
+      - "8090:8090"
+    networks:
+      - spring
+    depends_on:
+      - config-server
+      - eureka-server
+      - msvc-productos
+      - msvc-items
+      - msvc-usuarios
+      - msvc-oauth
+  msvc-oauth:
+    image:  msvc-oauth:latest
+    ports:
+      - "9100:9100"
+    restart: always
+    networks:
+      - spring
+    depends_on:
+      - config-server
+      - eureka-server
+      - msvc-usuarios
+  msvc-usuarios:
+    image: msvc-usuarios:latest
+    restart: always
+    networks:
+      - spring
+    depends_on:
+      - config-server
+      - eureka-server
+      - msvc-postgres
+networks:
+  spring:

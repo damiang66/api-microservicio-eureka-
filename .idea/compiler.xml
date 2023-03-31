@@ -20,6 +20,7 @@
     </annotationProcessing>
   </component>
   <component name="JavacSettings">
+    <option name="GENERATE_NO_WARNINGS" value="true" />
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="eureka-server" options="-parameters" />
       <module name="microservicios-docker" options="-parameters" />

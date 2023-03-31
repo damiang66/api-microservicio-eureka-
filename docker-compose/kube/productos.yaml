@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: msvc-productos
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      role: msvc-productos
+  template:
+    metadata:
+      labels:
+        role: msvc-productos
+    spec:
+      containers:
+        - name: msvc-oauth
+          image: damiang6666/msvc-productos:latest
+          ports:
+            - containerPort: 8002
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: msvc-productos
+spec:
+  type: LoadBalancer
+  ports:
+    - protocol: TCP
+      port: 8002

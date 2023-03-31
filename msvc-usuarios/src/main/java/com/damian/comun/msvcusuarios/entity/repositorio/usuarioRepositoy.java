@@ -1,4 +1,4 @@
-package com.damian.comun.msvcusuarios.repositorio;
+package com.damian.comun.msvcusuarios.entity.repositorio;
 
 
 
